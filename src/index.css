@@ -185,20 +185,65 @@ a:hover {
   margin: 0;
 }
 
-/* Editor input */
-.editor-input {
+/* Toolbar buttons */
+.toolbar-btn {
+  background: #333;
+  border: 1px solid #555;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: #444;
+}
+
+.toolbar-btn.active {
+  background: #646cff;
+  border-color: #646cff;
+}
+
+/* TipTap editor content */
+.editor-content {
   width: 100%;
   background: transparent;
   border: none;
   color: #fff;
   font-size: 1rem;
-  font-weight: 400;
   padding: 1rem 0;
   outline: none;
-  resize: vertical;
-  min-height: 200px;
+  min-height: 300px;
 }
 
-.editor-input::placeholder {
-  color: #666;
+.editor-content p {
+  margin: 0.5rem 0;
+  color: #fff;
+}
+
+.editor-content h1 {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem 0;
+  color: #fff;
+}
+
+.editor-content h2 {
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem 0;
+  color: #fff;
+}
+
+.editor-content ul {
+  padding-left: 1.5rem;
+  color: #fff;
+}
+
+.editor-content strong {
+  font-weight: 600;
+}
+
+.editor-content em {
+  font-style: italic;
 }

@@ -1,7 +1,21 @@
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import pageloopLogo from './assets/pageloop.png'
 import './index.css'
 
 function App() {
+    const editor = useEditor({
+    extensions: [
+      StarterKit,
+    ],
+    content: '<p>Start writing your document...</p>',
+    editorProps: {
+      attributes: {
+        class: 'editor-content',
+      },
+    },
+  })
+
   return (
     <div className="app-container">
       {/* Header */}
@@ -43,17 +57,41 @@ function App() {
           {/* Toolbar */}
           <div className="toolbar">
             {/* Buttons will go here */}
+            <button 
+              onClick={() => editor?.chain().focus().toggleBold().run()}
+              className={editor?.isActive('bold') ? 'toolbar-btn active' : 'toolbar-btn'}
+            >
+              Bold
+            </button>
+            <button 
+              onClick={() => editor?.chain().focus().toggleItalic().run()}
+              className={editor?.isActive('italic') ? 'toolbar-btn active' : 'toolbar-btn'}
+            >
+              Italic
+            </button>
+            <button 
+              onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}
+              className={editor?.isActive('heading', { level: 1 }) ? 'toolbar-btn active' : 'toolbar-btn'}
+            >
+              H1
+            </button>
+            <button 
+              onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
+              className={editor?.isActive('heading', { level: 2 }) ? 'toolbar-btn active' : 'toolbar-btn'}
+            >
+              H2
+            </button>
+            <button 
+              onClick={() => editor?.chain().focus().toggleBulletList().run()}
+              className={editor?.isActive('bulletList') ? 'toolbar-btn active' : 'toolbar-btn'}
+            >
+              • List
+            </button>
           </div>
 
           {/* Editor */}
           <div className="editor-section">
-            <div className="editor-placeholder">
-              <textarea 
-                placeholder="Start writing your document..." 
-                className="editor-input"
-                rows={10}
-              />
-            </div>
+            <EditorContent editor={editor} />
           </div>
         </main>
       </div>
