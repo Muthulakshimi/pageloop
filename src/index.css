@@ -28,7 +28,6 @@ body {
   border-bottom: 1px solid #333;
 }
 
-
 .header-content {
   display: flex;
   align-items: center;
@@ -68,7 +67,6 @@ h1 {
   filter: drop-shadow(0 0 1em #646cffaa);
 }
 
-/* Logo spinning keyframes */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -76,14 +74,6 @@ h1 {
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Content section - right below header */
-.content-section {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-  text-align: left;
 }
 
 a {
@@ -96,16 +86,17 @@ a:hover {
   color: #535bf2;
 }
 
+/* Layout */
 .main-container {
   display: flex;
-  height: calc(100vh - 120px); /* Adjust based on header height */
+  height: calc(100vh - 120px);
   max-width: 1400px;
   margin: 0 auto;
   gap: 1rem;
   padding: 1rem 2rem;
 }
 
-/* Sidebar styles */
+/* Sidebar */
 .sidebar {
   width: 250px;
   background-color: #1a1a1a;
@@ -123,26 +114,22 @@ a:hover {
   padding-bottom: 0.5rem;
 }
 
-.documents-list {
-  /* Document items will be styled here later */
-}
-
-/* Editor container */
+/* Editor Container */
 .editor-container {
   flex: 1;
   background-color: #1a1a1a;
   border: 1px solid #333;
   border-radius: 8px;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  overflow: hidden;
 }
 
-/* Title input */
+/* Title Section */
 .title-section {
   border-bottom: 1px solid #333;
-  padding-bottom: 1rem;
+  padding: 1rem;
+  background: #1a1a1a;
 }
 
 .title-input {
@@ -162,79 +149,102 @@ a:hover {
 
 /* Toolbar */
 .toolbar {
-  padding: 1rem 0;
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid #333;
-  min-height: 50px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: #1a1a1a;
+  min-height: 50px;
 }
 
-/* Editor section */
-.editor-section {
-  flex: 1;
-  padding: 1rem 0;
+.toolbar-group {
+  display: flex;
+  gap: 2px;
+  border-right: 1px solid #333;
+  padding-right: 0.75rem;
+  margin-right: 0.5rem;
 }
 
-.editor-placeholder {
-  color: #666;
-  font-size: 1.1rem;
+.toolbar-group:last-child {
+  border-right: none;
+  margin-right: 0;
 }
 
-.editor-placeholder p {
-  margin: 0;
-}
-
-/* Toolbar buttons */
 .toolbar-btn {
-  background: #333;
-  border: 1px solid #555;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #e0e0e0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 3px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .toolbar-btn:hover {
+  background: #333;
+  border-color: #555;
+}
+
+.toolbar-btn:active {
   background: #444;
+  transform: none;
 }
 
+/* Active state with prominent box outline */
 .toolbar-btn.active {
-  background: #646cff;
-  border-color: #646cff;
+  background: #646cff !important;
+  border: 2px solid #646cff !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.3), 0 2px 8px rgba(100, 108, 255, 0.4) !important;
+  outline: 2px solid rgba(100, 108, 255, 0.5) !important;
+  outline-offset: 1px !important;
 }
 
-.editor-content .ProseMirror.is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: #666;
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
+.toolbar-btn.active:hover {
+  background: #747bff !important;
+  border-color: #747bff !important;
+  box-shadow: 0 0 0 2px rgba(116, 123, 255, 0.4), 0 3px 12px rgba(100, 108, 255, 0.5) !important;
+  outline: 2px solid rgba(116, 123, 255, 0.6) !important;
 }
 
-.editor-content .ProseMirror p.is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: #666;
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
+
+.toolbar-btn strong,
+.toolbar-btn em,
+.toolbar-btn u,
+.toolbar-btn .icon {
+  color: inherit;
+  font-size: 0.9rem;
 }
 
-/* Ensure cursor is visible */
-.editor-content .ProseMirror {
-  outline: none;
-  caret-color: #fff;
+.toolbar-btn:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 1px;
 }
 
-.editor-content .ProseMirror:focus {
-  outline: none;
+.callout-btn {
+  font-size: 1rem !important;
 }
 
-/* TipTap editor content */
+/* Editor Section */
+.editor-section {
+  padding: 1rem;
+  background: #1a1a1a;
+  min-height: 400px;
+  flex: 1;
+}
+
+/* TipTap Editor */
 .editor-content {
   width: 100%;
   background: transparent;
@@ -247,16 +257,6 @@ a:hover {
   cursor: text;
 }
 
-/* TipTap Placeholder extension CSS */
-.ProseMirror p.is-editor-empty:first-child::before {
-  color: #666;
-  content: attr(data-placeholder);
-  float: left;
-  height: 0;
-  pointer-events: none;
-  font-style: italic;
-}
-
 .ProseMirror {
   outline: none;
   caret-color: #fff !important;
@@ -266,7 +266,17 @@ a:hover {
   outline: none;
 }
 
+/* TipTap Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #666;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-style: italic;
+}
 
+/* Editor Content Styling */
 .editor-content p {
   margin: 0.5rem 0;
   color: #fff;
@@ -295,4 +305,33 @@ a:hover {
 
 .editor-content em {
   font-style: italic;
+}
+
+/* Callout Styles */
+.editor-content [data-callout] {
+  border-left: 4px solid;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.editor-content [data-callout][data-type="info"] {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.editor-content [data-callout][data-type="warning"] {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.editor-content [data-callout][data-type="error"] {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.editor-content [data-callout][data-type="success"] {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
 }

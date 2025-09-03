@@ -1,12 +1,16 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
+import Underline from '@tiptap/extension-underline'
+import { Callout } from '../extensions/Callout'
 import Toolbar from './Toolbar'
 
 function DocumentEditor() {
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Underline,
+      Callout,
       Placeholder.configure({
         placeholder: 'Start writing your document...',
       }),
