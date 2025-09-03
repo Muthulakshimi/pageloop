@@ -3,9 +3,14 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import { Callout } from '../extensions/Callout'
+import { useDocuments } from '../contexts/DocumentContext'
+import { useState, useEffect } from 'react'
 import Toolbar from './Toolbar'
 
 function DocumentEditor() {
+  const { currentDocument } = useDocuments()
+  const [title, setTitle] = useState('')
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -23,6 +28,17 @@ function DocumentEditor() {
     },
   })
 
+  // Update editor content when document changes
+  useEffect(() => {
+    if (currentDocument) {
+      setTitle(currentDocument.title)
+      editor?.commands.setContent(currentDocument.content || '')
+    } else {
+      setTitle('')
+      editor?.commands.setContent('')
+    }
+  }, [currentDocument, editor])
+
   return (
     <main className="editor-container">
       {/* Title Input */}
@@ -31,11 +47,13 @@ function DocumentEditor() {
           type="text" 
           placeholder="Document Title" 
           className="title-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
 
       {/* Toolbar */}
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} title={title} />
 
       {/* Editor */}
       <div className="editor-section">

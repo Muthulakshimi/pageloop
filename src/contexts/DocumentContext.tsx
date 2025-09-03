@@ -1,0 +1,99 @@
+import { createContext, useContext, useState, ReactNode } from 'react'
+
+interface Document {
+  id: string
+  title: string
+  content: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface DocumentContextType {
+  documents: Document[]
+  currentDocument: Document | null
+  createNewDocument: () => void
+  saveDocument: (title: string, content: string) => void
+  loadDocument: (id: string) => void
+  deleteDocument: (id: string) => void
+}
+
+const DocumentContext = createContext<DocumentContextType | undefined>(undefined)
+
+export function DocumentProvider({ children }: { children: ReactNode }) {
+  const [documents, setDocuments] = useState<Document[]>([])
+  const [currentDocument, setCurrentDocument] = useState<Document | null>(null)
+
+  const createNewDocument = () => {
+    const newDoc: Document = {
+      id: Date.now().toString(),
+      title: 'Untitled Document',
+      content: '',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    setDocuments(prev => [newDoc, ...prev])
+    setCurrentDocument(newDoc)
+  }
+
+  const saveDocument = (title: string, content: string) => {
+    if (!currentDocument) {
+      // Create new document if none exists
+      const newDoc: Document = {
+        id: Date.now().toString(),
+        title: title || 'Untitled Document',
+        content,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      setDocuments(prev => [newDoc, ...prev])
+      setCurrentDocument(newDoc)
+    } else {
+      // Update existing document
+      const updatedDoc = {
+        ...currentDocument,
+        title: title || 'Untitled Document',
+        content,
+        updatedAt: new Date()
+      }
+      setDocuments(prev => 
+        prev.map(doc => doc.id === currentDocument.id ? updatedDoc : doc)
+      )
+      setCurrentDocument(updatedDoc)
+    }
+  }
+
+  const loadDocument = (id: string) => {
+    const doc = documents.find(d => d.id === id)
+    if (doc) {
+      setCurrentDocument(doc)
+    }
+  }
+
+  const deleteDocument = (id: string) => {
+    setDocuments(prev => prev.filter(doc => doc.id !== id))
+    if (currentDocument?.id === id) {
+      setCurrentDocument(null)
+    }
+  }
+
+  return (
+    <DocumentContext.Provider value={{
+      documents,
+      currentDocument,
+      createNewDocument,
+      saveDocument,
+      loadDocument,
+      deleteDocument
+    }}>
+      {children}
+    </DocumentContext.Provider>
+  )
+}
+
+export function useDocuments() {
+  const context = useContext(DocumentContext)
+  if (context === undefined) {
+    throw new Error('useDocuments must be used within a DocumentProvider')
+  }
+  return context
+}

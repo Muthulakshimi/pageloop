@@ -335,3 +335,110 @@ a:hover {
   border-color: #10b981;
   background: rgba(16, 185, 129, 0.1);
 }
+
+/* Document buttons in toolbar */
+.document-btn {
+  font-size: 1rem !important;
+  padding: 0.7rem 1.4rem !important;
+  min-width: 90px !important;
+  font-weight: 600 !important;
+  background: linear-gradient(90deg, #8b8b92 60%, #747bff 100%);
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(100, 108, 255, 0.15);
+  margin-right: 0.5rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.document-btn:hover {
+  background: linear-gradient(90deg, #747bff 60%, #646cff 100%);
+  box-shadow: 0 4px 16px rgba(100, 108, 255, 0.25);
+}
+
+.document-btn:active {
+  background: #646cff !important;
+  box-shadow: 0 2px 8px rgba(100, 108, 255, 0.2);
+}
+
+/* Documents list in sidebar */
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.no-documents {
+  color: #666;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+
+.document-item {
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2a2a2a;
+}
+
+.document-item:hover {
+  background: #333;
+  border-color: #555;
+}
+
+.document-item.active {
+  background: #646cff;
+  border-color: #646cff;
+  color: #fff;
+}
+
+.document-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-title {
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-date {
+  color: #888;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.document-item.active .document-date {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  border-radius: 3px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  background: rgba(239, 68, 68, 0.2);
+}

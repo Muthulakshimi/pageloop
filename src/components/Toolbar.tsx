@@ -1,16 +1,49 @@
 import { Editor } from '@tiptap/react'
+import { useDocuments } from '../contexts/DocumentContext'
 
 interface ToolbarProps {
   editor: Editor | null
+  title: string
 }
 
-function Toolbar({ editor }: ToolbarProps) {
+function Toolbar({ editor, title }: ToolbarProps) {
+  const { createNewDocument, saveDocument } = useDocuments()
+
   const addCallout = (type: string) => {
     editor?.chain().focus().insertContent(`<div data-callout data-type="${type}"><p>This is a ${type} callout</p></div>`).run()
   }
 
+  const handleNewDocument = () => {
+    createNewDocument()
+  }
+
+  const handleSaveDocument = () => {
+    const content = editor?.getHTML() || ''
+    saveDocument(title, content)
+  }
+
   return (
     <div className="toolbar">
+      {/* Document actions group */}
+      <div className="toolbar-group">
+        <button 
+          onClick={handleNewDocument}
+          className="toolbar-btn document-btn"
+          title="New Document"
+          type="button"
+        >
+          📄 New
+        </button>
+        <button 
+          onClick={handleSaveDocument}
+          className="toolbar-btn document-btn"
+          title="Save Document"
+          type="button"
+        >
+          💾 Save
+        </button>
+      </div>
+
       {/* Font formatting group */}
       <div className="toolbar-group">
         <button 
