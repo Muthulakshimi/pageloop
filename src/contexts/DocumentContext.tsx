@@ -31,7 +31,6 @@ export function DocumentProvider({ children }: { children: ReactNode }) {
       createdAt: new Date(),
       updatedAt: new Date()
     }
-    setDocuments(prev => [newDoc, ...prev])
     setCurrentDocument(newDoc)
   }
 
@@ -48,16 +47,23 @@ export function DocumentProvider({ children }: { children: ReactNode }) {
       setDocuments(prev => [newDoc, ...prev])
       setCurrentDocument(newDoc)
     } else {
-      // Update existing document
+      // Check if document already exists in the array
+      const exists = documents.some(doc => doc.id === currentDocument.id)
       const updatedDoc = {
         ...currentDocument,
         title: title || 'Untitled Document',
         content,
         updatedAt: new Date()
       }
-      setDocuments(prev => 
-        prev.map(doc => doc.id === currentDocument.id ? updatedDoc : doc)
-      )
+      if (exists) {
+        // Update existing document
+        setDocuments(prev =>
+          prev.map(doc => doc.id === currentDocument.id ? updatedDoc : doc)
+        )
+      } else {
+        // Add new document
+        setDocuments(prev => [updatedDoc, ...prev])
+      }
       setCurrentDocument(updatedDoc)
     }
   }
