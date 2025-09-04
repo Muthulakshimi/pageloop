@@ -3,8 +3,8 @@ import { useDocuments } from '../contexts/DocumentContext'
 function Sidebar() {
   const { documents, currentDocument, loadDocument, deleteDocument } = useDocuments()
 
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString('en-US', {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
@@ -28,7 +28,7 @@ function Sidebar() {
               <div className="document-info">
                 <h4 className="document-title">{doc.title}</h4>
                 <p className="document-date">
-                  {formatDate(doc.updatedAt)}
+                  {formatDate(doc.updated_at)}
                 </p>
               </div>
               <button 
